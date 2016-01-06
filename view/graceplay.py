@@ -95,6 +95,7 @@ class GracePlay(QtGui.QMainWindow):
         self.setWindowOpacity(0.95)
         #self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint) 
         self.show()
+
     def init_media(self):
         self.media = Phonon.MediaObject(self)
         self.video = Video(self)
@@ -102,6 +103,7 @@ class GracePlay(QtGui.QMainWindow):
 
     def init_ui(self):
         self.setCentralWidget(self.video)
+        self.video.setMinimumSize(650, 350)
 
         self.controlbar = ControlBar(_('ControlBar'))
         self.btn_open  = self.controlbar.btn_open
