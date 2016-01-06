@@ -45,6 +45,7 @@ class ControlBar(QtGui.QDockWidget):
         self.seekslider = Phonon.SeekSlider()
         self.volumeslider = Phonon.VolumeSlider()
 
+        self.setWindowOpacity(0.8)  # Set Controlbar transparent 
         self.setTitleBarWidget(QtGui.QWidget(self))     # Hide title bar
         self.setFeatures(QtGui.QDockWidget.NoDockWidgetFeatures)
         self.setWindowFlags(QtCore.Qt.Window | 
@@ -53,6 +54,7 @@ class ControlBar(QtGui.QDockWidget):
                             QtCore.Qt.CustomizeWindowHint | 
                             QtCore.Qt.WindowStaysOnTopHint)
         self.setAllowedAreas(QtCore.Qt.TopDockWidgetArea | QtCore.Qt.BottomDockWidgetArea)
+        self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
         self.setFocusPolicy(QtCore.Qt.NoFocus)
 
         self.btn_open.setFocusPolicy(QtCore.Qt.NoFocus)
@@ -90,8 +92,9 @@ class GracePlay(QtGui.QMainWindow):
         self.init_ui()
 
         self.setWindowTitle(_('GracePlay'))
+        self.setWindowOpacity(0.95)
+        #self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint) 
         self.show()
-
     def init_media(self):
         self.media = Phonon.MediaObject(self)
         self.video = Video(self)
@@ -101,7 +104,6 @@ class GracePlay(QtGui.QMainWindow):
         self.setCentralWidget(self.video)
 
         self.controlbar = ControlBar(_('ControlBar'))
-        #self.controlbar = ControlBar()
         self.btn_open  = self.controlbar.btn_open
         self.btn_play  = self.controlbar.btn_play
         self.btn_pause = self.controlbar.btn_pause
