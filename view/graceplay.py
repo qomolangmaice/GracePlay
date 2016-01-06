@@ -11,6 +11,7 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.phonon import Phonon
 
 class Video(Phonon.VideoWidget):
+
     doubleClicked = QtCore.pyqtSignal()
     keyPressed = QtCore.pyqtSignal(QtGui.QKeyEvent)
     mouseTrack = QtCore.pyqtSignal(QtGui.QMouseEvent)
@@ -44,7 +45,14 @@ class ControlBar(QtGui.QDockWidget):
         self.seekslider = Phonon.SeekSlider()
         self.volumeslider = Phonon.VolumeSlider()
 
-        self.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea)
+        self.setTitleBarWidget(QtGui.QWidget(self))     # Hide title bar
+        self.setFeatures(QtGui.QDockWidget.NoDockWidgetFeatures)
+        self.setWindowFlags(QtCore.Qt.Window | 
+                            QtCore.Qt.X11BypassWindowManagerHint | 
+                            QtCore.Qt.FramelessWindowHint |
+                            QtCore.Qt.CustomizeWindowHint | 
+                            QtCore.Qt.WindowStaysOnTopHint)
+        self.setAllowedAreas(QtCore.Qt.TopDockWidgetArea | QtCore.Qt.BottomDockWidgetArea)
         self.setFocusPolicy(QtCore.Qt.NoFocus)
 
         self.btn_open.setFocusPolicy(QtCore.Qt.NoFocus)
@@ -70,8 +78,8 @@ class ControlBar(QtGui.QDockWidget):
 
     def move_to_bottom(self):
         rect = QtGui.QApplication.desktop().availableGeometry()
-        self.move(rect.width/2 - self.size().width()/2, 
-                  rect.bootom() - self.height()) 
+        self.move(rect.width()/2 - self.size().width()/2, 
+                  rect.bottom() - self.height()) 
 
 class GracePlay(QtGui.QMainWindow):
     ''' The main window of the GracePlay.'''

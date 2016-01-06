@@ -68,7 +68,7 @@ class GracePlayController:
         self.view.volumeslider.setAudioOutput(self.audio)
 
     def handle_btn_open(self):
-        file_path = QtGui.QFileDialog.getOpenFileName(self.view, self.btn_open.text())
+        file_path = QtGui.QFileDialog.getOpenFileName(self.view, self.view.btn_open.text())
         if file_path:
             self.media.setCurrentSource(Phonon.MediaSource(file_path))
             self.media.play()
