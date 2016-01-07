@@ -37,11 +37,11 @@ class ControlBar(QtGui.QDockWidget):
     def __init__(self, title='', parent=None):
         super(ControlBar, self).__init__(title, parent)
 
-        self.btn_open  = QtGui.QPushButton(QtGui.QIcon('icons/video.png'), '')
+        self.btn_open  = QtGui.QPushButton(QtGui.QIcon('icons/add.png'), '')
         self.btn_play  = QtGui.QPushButton(QtGui.QIcon('icons/play.png'), '')
         self.btn_pause = QtGui.QPushButton(QtGui.QIcon('icons/pause.png'), '')
         self.btn_stop  = QtGui.QPushButton(QtGui.QIcon('icons/stop.png'), '')
-        self.btn_fullscreen  = QtGui.QPushButton(QtGui.QIcon('icons/expand.png'), '')
+        self.btn_fullscreen  = QtGui.QPushButton(QtGui.QIcon('icons/fullscreen.png'), '')
         self.seekslider = Phonon.SeekSlider()
         self.volumeslider = Phonon.VolumeSlider()
 
@@ -77,6 +77,7 @@ class ControlBar(QtGui.QDockWidget):
         hbox.addWidget(self.seekslider, 1)
         hbox.addWidget(self.volumeslider)
         self.setWidget(w_controlbar)
+        self.setFixedHeight(50)
 
     def move_to_bottom(self):
         rect = QtGui.QApplication.desktop().availableGeometry()
@@ -93,7 +94,8 @@ class GracePlay(QtGui.QMainWindow):
 
         self.setWindowTitle(_('GracePlay'))
         self.setWindowOpacity(0.95)
-        #self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint) 
+        # set Frameless window
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint) 
         self.show()
 
     def init_media(self):
@@ -114,3 +116,14 @@ class GracePlay(QtGui.QMainWindow):
         self.seekslider = self.controlbar.seekslider
         self.volumeslider = self.controlbar.volumeslider
         self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, self.controlbar)
+
+    def mousePressEvent(self, event):
+        if event.button() == QtCore.Qt.LeftButton:
+            self.dragPosition = event.globalPos() - self.frameGeometry().topLeft()
+            event.accept()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == QtCore.Qt.LeftButton:
+            self.move(event.globalPos() - self.dragPosition)
+            event.accept()
+

@@ -8,3 +8,4 @@
 # Created: 2016.01.05 20:57:00
 
 from graceplay import GracePlay
+from title_widget import TitleWidget
