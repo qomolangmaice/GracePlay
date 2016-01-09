@@ -95,7 +95,7 @@ class GracePlay(QtGui.QMainWindow):
         self.setWindowTitle(_('GracePlay'))
         self.setWindowOpacity(0.95)
         # set Frameless window
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint) 
+        #self.setWindowFlags(QtCore.Qt.FramelessWindowHint) 
         self.show()
 
     def init_media(self):
