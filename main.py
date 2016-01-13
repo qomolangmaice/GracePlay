@@ -12,7 +12,7 @@ import gettext
 
 from PyQt4 import QtGui, QtCore 
 
-#import model
+import model
 import view
 import controller
 
@@ -20,8 +20,9 @@ def main():
     gettext.install('main', 'i18n', unicode=True, names = ['ugettext'])
     app = QtGui.QApplication(sys.argv)
     app.setApplicationName(_('GracePlay'))
+    playlist_model = model.PlayListModel()
     graceplay = view.GracePlay()
-    graceplaycontroller = controller.GracePlayController(graceplay)
+    graceplaycontroller = controller.GracePlayController(playlist_model, graceplay)
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

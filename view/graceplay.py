@@ -10,6 +10,9 @@
 from PyQt4 import QtCore, QtGui
 from PyQt4.phonon import Phonon
 
+from title_widget import *
+from playlist import PlayList
+
 class Video(Phonon.VideoWidget):
 
     doubleClicked = QtCore.pyqtSignal()
@@ -77,7 +80,7 @@ class ControlBar(QtGui.QDockWidget):
         hbox.addWidget(self.seekslider, 1)
         hbox.addWidget(self.volumeslider)
         self.setWidget(w_controlbar)
-        self.setFixedHeight(50)
+        self.setFixedHeight(60)
 
     def move_to_bottom(self):
         rect = QtGui.QApplication.desktop().availableGeometry()
@@ -88,7 +91,7 @@ class GracePlay(QtGui.QMainWindow):
     ''' The main window of the GracePlay.'''
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
-
+        
         self.init_media()
         self.init_ui()
 
@@ -104,8 +107,13 @@ class GracePlay(QtGui.QMainWindow):
         self.audio = Phonon.AudioOutput(self)
 
     def init_ui(self):
+        #self.title_widget = TitleWidget(self)
+
+        #main_layout = QVBoxLayout()
+        #main_layout.addWidget(self.title_widget)
+        #main_layout.addWidget(self.video)
         self.setCentralWidget(self.video)
-        self.video.setMinimumSize(650, 350)
+        self.video.setMinimumSize(500, 350)
 
         self.controlbar = ControlBar(_('ControlBar'))
         self.btn_open  = self.controlbar.btn_open
@@ -115,7 +123,14 @@ class GracePlay(QtGui.QMainWindow):
         self.btn_fullscreen = self.controlbar.btn_fullscreen
         self.seekslider = self.controlbar.seekslider
         self.volumeslider = self.controlbar.volumeslider
+
+        #main_layout.addWidget(self.controlbar)
+        #self.setLayout(main_layout)
+        #self.setContentsMargins(0, 0, 0, 0)
         self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, self.controlbar)
+
+        self.playlist = PlayList(_('PlayList'))
+        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, self.playlist)
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
