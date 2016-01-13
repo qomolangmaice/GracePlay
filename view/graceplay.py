@@ -33,7 +33,7 @@ class Video(Phonon.VideoWidget):
     def mouseMoveEvent(self, event):
         self.mouseTrack.emit(event)
 
-    def keyPresseEvent(self, event):
+    def keyPressEvent(self, event):
         self.keyPressed.emit(event)
 
 class ControlBar(QtGui.QDockWidget):

@@ -39,7 +39,7 @@ class GracePlayController:
 
         self.video.doubleClicked.connect(self.toggle_fullscreen)
         self.video.mouseTrack.connect(self.animate_controlbar)
-        #self.video.keyPressed.connect(self.key_handler)
+        self.video.keyPressed.connect(self.key_handler)
         
         #self.playlist.listview.doubleClicked.connect(self.play_file)
 
@@ -50,19 +50,19 @@ class GracePlayController:
             else:
                 self.controlbar.hide()
 
-    #def key_handler(self, e):
-    #    if e.key() == QtCore.Qt.Key_Left:
-    #        self.media.seek(self.media.currentTime() - 10000)
-    #    elif e.key() == QtCore.Qt.Key_Right:
-    #        self.media.seek(self.media.currentTime() + 10000)
-    #    elif e.key() == QtCore.Qt.Key_Down:
-    #        self.media.seek(self.media.currentTime() - 60000)
-    #    elif e.key() == QtCore.Qt.Key_Up:
-    #        self.media.seek(self.media.currentTime() + 60000)
-    #    elif e.key() == QtCore.Qt.Key_F:
-    #        self.toggle_fullscreen()
-    #    elif e.key() == QtCore.Qt.Key_Space:
-    #        self.toggle_play()
+    def key_handler(self, e):
+        if e.key() == QtCore.Qt.Key_Left:
+            self.media.seek(self.media.currentTime() - 10000)
+        elif e.key() == QtCore.Qt.Key_Right:
+            self.media.seek(self.media.currentTime() + 10000)
+        elif e.key() == QtCore.Qt.Key_Down:
+            self.media.seek(self.media.currentTime() - 60000)
+        elif e.key() == QtCore.Qt.Key_Up:
+            self.media.seek(self.media.currentTime() + 60000)
+        elif e.key() == QtCore.Qt.Key_F:
+            self.toggle_fullscreen()
+        elif e.key() == QtCore.Qt.Key_Space:
+            self.toggle_play()
         #elif e.key() == QtCore.Qt.Key_Esc:
         #    self.toggle_fullscreen()
 
