@@ -10,7 +10,7 @@
 from PyQt4 import QtCore, QtGui
 from PyQt4.phonon import Phonon
 
-from title_widget import *
+from title_widget import TitleWidget 
 from playlist import PlayList
 
 class Video(Phonon.VideoWidget):
@@ -39,6 +39,10 @@ class Video(Phonon.VideoWidget):
 class ControlBar(QtGui.QDockWidget):
     def __init__(self, title='', parent=None):
         super(ControlBar, self).__init__(title, parent)
+
+        #self.combo_open = QtGui.QComboBox()
+        #self.combo_open.addItem("Open File")
+        #self.combo_open.addItem("Open Directory")
 
         self.btn_open  = QtGui.QPushButton(QtGui.QIcon('icons/add.png'), '')
         self.btn_play  = QtGui.QPushButton(QtGui.QIcon('icons/play.png'), '')
@@ -72,6 +76,7 @@ class ControlBar(QtGui.QDockWidget):
         w_controlbar = QtGui.QWidget()
         hbox = QtGui.QHBoxLayout()
         w_controlbar.setLayout(hbox)
+        #hbox.addWidget(self.combo_open)
         hbox.addWidget(self.btn_open)
         hbox.addWidget(self.btn_play)
         hbox.addWidget(self.btn_pause)
@@ -80,25 +85,49 @@ class ControlBar(QtGui.QDockWidget):
         hbox.addWidget(self.seekslider, 1)
         hbox.addWidget(self.volumeslider)
         self.setWidget(w_controlbar)
-        self.setFixedHeight(60)
+        #self.setFixedHeight(60)
 
     def move_to_bottom(self):
         rect = QtGui.QApplication.desktop().availableGeometry()
         self.move(rect.width()/2 - self.size().width()/2, 
                   rect.bottom() - self.height()) 
 
-class GracePlay(QtGui.QMainWindow):
+#class GracePlay(QtGui.QMainWindow):
+class GracePlay(QtGui.QWidget):
     ''' The main window of the GracePlay.'''
     def __init__(self, parent=None):
-        QtGui.QMainWindow.__init__(self, parent)
-        
+        #QtGui.QMainWindow.__init__(self, parent)
+        QtGui.QWidget.__init__(self, parent)
+
         self.init_media()
         self.init_ui()
 
-        self.setWindowTitle(_('GracePlay'))
+        #self.setWindowTitle(_('GracePlay'))
+        self.setWindowIcon(QtGui.QIcon("icons/video.png"))
+
+        # Set transparent window
         self.setWindowOpacity(0.95)
+        self.setMinimumSize(700, 350)
+
         # set Frameless window
-        #self.setWindowFlags(QtCore.Qt.FramelessWindowHint) 
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint) 
+
+        # Set background color
+        #widget_style = ''' 
+        #    QWidget{
+        #        border-radius: 4px;
+        #        background-image: url('skin/17_big.png');
+        #    }
+        #    VideoWidget{
+        #        background-color: #000000;
+        #    } 
+        #'''
+        #self.setStyleSheet(widget_style)
+
+        self.skin_name = QtCore.QString("skin/1_big.jpg")
+        self.pixmap = QtGui.QPixmap()
+        self.pixmap.load(self.skin_name)
+
         self.show()
 
     def init_media(self):
@@ -107,13 +136,23 @@ class GracePlay(QtGui.QMainWindow):
         self.audio = Phonon.AudioOutput(self)
 
     def init_ui(self):
-        #self.title_widget = TitleWidget(self)
+        self.title_widget = TitleWidget(self)
+        self.btn_mainmenu = self.title_widget.btn_mainmenu
+        self.btn_min = self.title_widget.btn_min
+        self.btn_max = self.title_widget.btn_max
+        self.btn_close = self.title_widget.btn_close
 
-        #main_layout = QVBoxLayout()
-        #main_layout.addWidget(self.title_widget)
-        #main_layout.addWidget(self.video)
-        self.setCentralWidget(self.video)
-        self.video.setMinimumSize(500, 350)
+        self.btn_mainmenu.clicked.connect(self.handle_mainmenu)
+        self.btn_min.clicked.connect(self.handle_min)
+        self.btn_max.clicked.connect(self.handle_max)
+        self.btn_close.clicked.connect(self.handle_close)
+
+        main_layout = QtGui.QVBoxLayout()
+        main_layout.addWidget(self.title_widget)
+
+        main_layout.addWidget(self.video)
+        #self.setCentralWidget(self.video)
+        self.video.setMinimumSize(700, 350)
 
         self.controlbar = ControlBar(_('ControlBar'))
         self.btn_open  = self.controlbar.btn_open
@@ -123,14 +162,25 @@ class GracePlay(QtGui.QMainWindow):
         self.btn_fullscreen = self.controlbar.btn_fullscreen
         self.seekslider = self.controlbar.seekslider
         self.volumeslider = self.controlbar.volumeslider
-
-        #main_layout.addWidget(self.controlbar)
-        #self.setLayout(main_layout)
-        #self.setContentsMargins(0, 0, 0, 0)
-        self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, self.controlbar)
+        self.controlbar.setFixedHeight(45)
 
         self.playlist = PlayList(_('PlayList'))
-        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, self.playlist)
+
+        main_layout.addWidget(self.controlbar)
+
+        #main_layout.addWidget(self.playlist)
+        main_layout.setContentsMargins(0, 0, 0, 0)
+
+        self.setLayout(main_layout)
+        #self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, self.controlbar)
+
+        #self.playlist = PlayList(_('PlayList'))
+        #self.addDockWidget(QtCore.Qt.RightDockWidgetArea, self.playlist)
+
+    def paintEvent(self, event):
+        painter = QtGui.QPainter(self)
+        painter.drawPixmap(self.rect(), self.pixmap)
+        painter.end()
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -141,4 +191,20 @@ class GracePlay(QtGui.QMainWindow):
         if event.buttons() == QtCore.Qt.LeftButton:
             self.move(event.globalPos() - self.dragPosition)
             event.accept()
+
+    def handle_close(self):
+        self.close()
+
+    def handle_mainmenu(self):
+        pass
+
+    def handle_min(self):
+        self.showMinimized()
+
+    def handle_max(self):
+        if not self.isMaximized():
+            self.showMaximized()
+        else:
+            self.showNormal()
+
 

@@ -15,7 +15,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.Qt import *
 
-class TitleWidget(QDockWidget):
+class TitleWidget(QWidget):
     def __init__(self, parent=None):
         super(TitleWidget, self).__init__(parent)
 
@@ -24,27 +24,28 @@ class TitleWidget(QDockWidget):
         self.btn_max = PushButton(self)
         self.btn_close = PushButton(self)
 
-        self.setWindowOpacity(0.8)  # Set Controlbar transparent 
-        self.setTitleBarWidget(QtGui.QWidget(self))     # Hide title bar
-        self.setFeatures(QtGui.QDockWidget.NoDockWidgetFeatures)
-        self.setWindowFlags(QtCore.Qt.Window | 
-                            QtCore.Qt.X11BypassWindowManagerHint | 
-                            QtCore.Qt.FramelessWindowHint |
-                            QtCore.Qt.CustomizeWindowHint | 
-                            QtCore.Qt.WindowStaysOnTopHint)
-        self.setAllowedAreas(QtCore.Qt.TopDockWidgetArea | QtCore.Qt.BottomDockWidgetArea)
-        self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
-        self.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        #self.setWindowOpacity(0.8)  # Set Controlbar transparent 
+        #self.setTitleBarWidget(QtGui.QWidget(self))     # Hide title bar
+        #self.setFeatures(QtGui.QDockWidget.NoDockWidgetFeatures)
+        #self.setWindowFlags(QtCore.Qt.Window | 
+        #                    QtCore.Qt.X11BypassWindowManagerHint | 
+        #                    QtCore.Qt.FramelessWindowHint |
+        #                    QtCore.Qt.CustomizeWindowHint | 
+        #                    QtCore.Qt.WindowStaysOnTopHint)
+        #self.setAllowedAreas(QtCore.Qt.TopDockWidgetArea | QtCore.Qt.BottomDockWidgetArea)
+        #self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
+        #self.setFocusPolicy(QtCore.Qt.NoFocus)
 
-        self.btn_mainmenu.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.btn_min.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.btn_max.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.btn_close.setFocusPolicy(QtCore.Qt.NoFocus)
+        #self.btn_mainmenu.setFocusPolicy(QtCore.Qt.NoFocus)
+        #self.btn_min.setFocusPolicy(QtCore.Qt.NoFocus)
+        #self.btn_max.setFocusPolicy(QtCore.Qt.NoFocus)
+        #self.btn_close.setFocusPolicy(QtCore.Qt.NoFocus)
 
         # Set logo picture 
         self.lab_logo = QLabel()
-        pixmap = QPixmap("./../icons/video.png")
-        self.lab_logo.setPixmap(pixmap)
+        pixmap = QPixmap("icons/anchor.png")
+        #self.lab_logo.setPixmap(pixmap)
         self.lab_logo.setFixedSize(pixmap.size())
         #self.lab_logo.setFixedSize(25, 25)
         #self.lab_logo.setIconSize(QSize(25, 25))
@@ -53,25 +54,27 @@ class TitleWidget(QDockWidget):
 
         # Set Title color
         self.lab_title = QLabel()
-        self.lab_title.setText(u'GracePlay(version 0.1)')
+        self.lab_title.setText(u'GracePlay-V0.1')
+        self.lab_title.setFont(QFont("Roman times", 11, QFont.Normal))
+        self.lab_title.setAlignment(Qt.AlignRight | Qt.AlignBottom)
 
         # Set the picture of buttons
-        self.btn_mainmenu.loadPixmap('./../icons/main_menu.png')
-        self.btn_min.loadPixmap('./../icons/min_button.png')
-        self.btn_max.loadPixmap('./../icons/max_button.png')
-        self.btn_close.loadPixmap('./../icons/close_button.png')
+        self.btn_mainmenu.loadPixmap('icons/main_menu.png')
+        self.btn_min.loadPixmap('icons/min_button.png')
+        self.btn_max.loadPixmap('icons/max_button.png')
+        self.btn_close.loadPixmap('icons/close_button.png')
 
         self.connect(self.btn_mainmenu, SIGNAL("clicked()"), self, SIGNAL("showMainMenu()"))
         self.connect(self.btn_min, SIGNAL("clicked()"), self, SIGNAL("showMin()"))
         self.connect(self.btn_max, SIGNAL("clicked()"), self, SIGNAL("showMax()"))
         self.connect(self.btn_close, SIGNAL("clicked()"), self, SIGNAL("showClose()"))
 
-        w_title = QtGui.QWidget()
+        #w_title = QtGui.QWidget()
         title_layout = QHBoxLayout()
-        w_title.setLayout(title_layout)
+        #w_title.setLayout(title_layout)
 
-        title_layout.addWidget(self.lab_logo, 0, Qt.AlignTop)
-        title_layout.addWidget(self.lab_title, 0, Qt.AlignTop)
+        #title_layout.addWidget(self.lab_logo, 0, Qt.AlignTop)
+        title_layout.addWidget(self.lab_title, 0, Qt.AlignCenter)
         title_layout.setSpacing(0)
         title_layout.addStretch()
         title_layout.addWidget(self.btn_mainmenu, 0, Qt.AlignTop)
@@ -80,12 +83,12 @@ class TitleWidget(QDockWidget):
         title_layout.addWidget(self.btn_close, 0, Qt.AlignTop)
         title_layout.setContentsMargins(0, 0, 5, 0)
 
-
         # Set hints of the buttons
         self.translateLanguage()
 
-        self.setWidget(w_title)
-        self.setFixedHeight(25)
+        self.setLayout(title_layout)
+        #self.setWidget(w_title)
+        self.setFixedHeight(20)
         self.is_move = False 
 
     def translateLanguage(self):
