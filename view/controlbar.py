@@ -10,6 +10,8 @@
 from PyQt4 import QtCore, QtGui
 from PyQt4.phonon import Phonon
 
+from push_button import PushButton
+
 class ControlBar(QtGui.QDockWidget):
     def __init__(self, title='', parent=None):
         super(ControlBar, self).__init__(title, parent)
@@ -18,6 +20,8 @@ class ControlBar(QtGui.QDockWidget):
         #self.combo_open.addItem("Open File")
         #self.combo_open.addItem("Open Directory")
 
+        #self.btn_open= PushButton(self)
+        #self.btn_open.loadPixmap('icons/add1.png')
         self.btn_open  = QtGui.QPushButton(QtGui.QIcon('icons/add.png'), '')
         self.btn_play  = QtGui.QPushButton(QtGui.QIcon('icons/play.png'), '')
         self.btn_pause = QtGui.QPushButton(QtGui.QIcon('icons/pause.png'), '')
@@ -62,7 +66,7 @@ class ControlBar(QtGui.QDockWidget):
         #self.setFixedHeight(60)
 
         self.translateLanguage()
-        self.skin_name = QtCore.QString("skin/black.png")
+        self.skin_name = QtCore.QString("skin/starsky.png")
         self.pixmap = QtGui.QPixmap()
         self.pixmap.load(self.skin_name)
 

@@ -26,7 +26,7 @@ class TitleWidget(QWidget):
 
         # Set logo picture 
         self.lab_logo = QLabel()
-        pixmap = QPixmap("icons/anchor.png")
+        pixmap = QPixmap("icons/video.png")
         #self.lab_logo.setPixmap(pixmap)
         self.lab_logo.setFixedSize(pixmap.size())
         #self.lab_logo.setFixedSize(25, 25)
@@ -36,7 +36,7 @@ class TitleWidget(QWidget):
 
         # Set Title color
         self.lab_title = QLabel()
-        self.lab_title.setText(u'  GracePlay')
+        self.lab_title.setText(u' GracePlay')
         self.lab_title.setStyleSheet("color:white")   # set logo transparent
         self.lab_title.setFont(QFont("Roman times", 13, QFont.Normal))
         self.lab_title.setAlignment(Qt.AlignRight | Qt.AlignBottom)
@@ -65,7 +65,7 @@ class TitleWidget(QWidget):
         self.setFixedHeight(22)
         self.is_move = False
 
-        self.skin_name = QtCore.QString("skin/black.png")
+        self.skin_name = QtCore.QString("skin/starsky.png")
         self.pixmap = QtGui.QPixmap()
         self.pixmap.load(self.skin_name)
 
