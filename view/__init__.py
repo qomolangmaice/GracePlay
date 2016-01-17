@@ -10,3 +10,5 @@
 from graceplay import GracePlay
 from push_button import PushButton
 from title_widget import TitleWidget
+from controlbar import ControlBar 
+

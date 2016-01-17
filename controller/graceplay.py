@@ -23,6 +23,7 @@ class GracePlayController:
         self.view = view
         self.audio = self.view.audio
         self.media = self.view.media
+        self.title_widget = self.view.title_widget
         self.video = self.view.video
         self.controlbar = self.view.controlbar
         self.playlist = self.view.playlist
@@ -34,17 +35,38 @@ class GracePlayController:
         #self.controlbar.combo_open.currentIndexChanged.connect(self.handle_combo_open)
         #self.connect(self.title_widget, SINGAL("show_close()"), self, SLOT("show_close()"))
 
+        self.view.btn_mainmenu.clicked.connect(self.handle_mainmenu)
+        self.view.btn_min.clicked.connect(self.handle_min)
+        self.view.btn_max.clicked.connect(self.handle_max)
+        self.view.btn_close.clicked.connect(self.handle_close)
+
+        self.video.doubleClicked.connect(self.toggle_fullscreen)
+        self.video.mouseTrack.connect(self.animate_controlbar)
+        self.video.keyPressed.connect(self.key_handler)
+ 
         self.view.btn_open.clicked.connect(self.handle_btn_open)
         self.view.btn_play.clicked.connect(self.handle_btn_play)
         self.view.btn_pause.clicked.connect(self.handle_btn_pause)
         self.view.btn_stop.clicked.connect(self.handle_btn_stop)
         self.view.btn_fullscreen.clicked.connect(self.handle_btn_fullscreen)
 
-        self.video.doubleClicked.connect(self.toggle_fullscreen)
-        self.video.mouseTrack.connect(self.animate_controlbar)
-        self.video.keyPressed.connect(self.key_handler)
-        
+       
         #self.playlist.listview.doubleClicked.connect(self.play_file)
+
+    def handle_close(self):
+        self.view.close()
+
+    def handle_mainmenu(self):
+        pass
+
+    def handle_min(self):
+        self.view.showMinimized()
+
+    def handle_max(self):
+        if not self.view.isMaximized():
+            self.view.showMaximized()
+        else:
+            self.view.showNormal()
 
     def animate_controlbar(self, e):
         if self.video.isFullScreen():
