@@ -123,7 +123,7 @@ class GracePlayController:
         #file_path = QtGui.QFileDialog.getOpenFileName(self.view, self.view.btn_open.text())
         file_dialog = QtGui.QFileDialog(self.view, _('Choose a File'), 
                                       os.path.expanduser('~'),
-                                      _('Multimedia File (*.avi *.wmv *.mkv *.rmvb *.mp3 *.mp4)'))
+                                      _('Multimedia File (*.*)'))
         #if file_path:
         if file_dialog.exec_():
             self.clear_files()

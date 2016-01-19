@@ -26,8 +26,8 @@ class TitleWidget(QWidget):
 
         # Set logo picture 
         self.lab_logo = QLabel()
-        pixmap = QPixmap("icons/video.png")
-        #self.lab_logo.setPixmap(pixmap)
+        pixmap = QPixmap("icons/24px-video.png")
+        self.lab_logo.setPixmap(pixmap)
         self.lab_logo.setFixedSize(pixmap.size())
         #self.lab_logo.setFixedSize(25, 25)
         #self.lab_logo.setIconSize(QSize(25, 25))
@@ -48,7 +48,7 @@ class TitleWidget(QWidget):
         self.btn_close.loadPixmap('icons/close_button.png')
 
         title_layout = QHBoxLayout()
-        #title_layout.addWidget(self.lab_logo, 0, Qt.AlignTop)
+        title_layout.addWidget(self.lab_logo, 0, Qt.AlignTop)
         title_layout.addWidget(self.lab_title, 0, Qt.AlignCenter)
         title_layout.setSpacing(0)
         title_layout.addStretch()
@@ -62,7 +62,7 @@ class TitleWidget(QWidget):
         self.translateLanguage()
 
         self.setLayout(title_layout)
-        self.setFixedHeight(22)
+        self.setFixedHeight(23)
         self.is_move = False
 
         self.skin_name = QtCore.QString("skin/starsky.png")

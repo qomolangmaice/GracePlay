@@ -25,7 +25,7 @@ class GracePlay(QtGui.QWidget):
         self.init_media()
         self.init_ui()
 
-        self.setWindowIcon(QtGui.QIcon("icons/video.png"))
+        self.setWindowIcon(QtGui.QIcon("icons/72px-video.png"))
 
         # Set transparent window
         self.setWindowOpacity(0.95)
@@ -33,6 +33,7 @@ class GracePlay(QtGui.QWidget):
 
         # set Frameless window
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint) 
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         # Set background color
         #widget_style = ''' 
