@@ -28,7 +28,8 @@ class GracePlay(QtGui.QWidget):
         self.setWindowIcon(QtGui.QIcon("icons/72px-video.png"))
 
         # Set transparent window
-        self.setWindowOpacity(0.95)
+        #self.setWindowOpacity(0.95)
+        self.setWindowOpacity(1)
         self.setMinimumSize(700, 450)
 
         # set Frameless window
@@ -60,8 +61,9 @@ class GracePlay(QtGui.QWidget):
         self.btn_max = self.title_widget.btn_max
         self.btn_close = self.title_widget.btn_close
 
-        self.controlbar = ControlBar(_('ControlBar'))
-        self.controlbar.setFixedHeight(55)
+        #self.controlbar = ControlBar(_('ControlBar'))
+        self.controlbar = ControlBar()
+        self.controlbar.setFixedHeight(48)
         self.btn_open  = self.controlbar.btn_open
         self.btn_play  = self.controlbar.btn_play
         self.btn_pause = self.controlbar.btn_pause

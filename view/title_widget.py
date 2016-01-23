@@ -34,12 +34,20 @@ class TitleWidget(QWidget):
         self.lab_logo.setStyleSheet("background:transparent")   # set logo transparent
         self.lab_logo.setCursor(Qt.PointingHandCursor)
 
-        # Set Title color
+        # Set Title 
         self.lab_title = QLabel()
         self.lab_title.setText(u' GracePlay')
         self.lab_title.setStyleSheet("color:white")   # set logo transparent
-        self.lab_title.setFont(QFont("Roman times", 13, QFont.Normal))
+        self.lab_title.setFont(QFont("Roman times", 12, QFont.Normal))
         self.lab_title.setAlignment(Qt.AlignRight | Qt.AlignBottom)
+
+        # Set Movie name 
+        self.lab_movie_name = QLabel()
+        self.lab_movie_name.setText(u'')
+        self.lab_movie_name.setStyleSheet("color:white")   # set logo transparent
+        self.lab_movie_name.setFont(QFont("Roman times", 9, QFont.Normal))
+        self.lab_movie_name.setAlignment(Qt.AlignRight | Qt.AlignBottom)
+
 
         # Set the picture of buttons
         self.btn_mainmenu.loadPixmap('icons/main_menu.png')
@@ -51,6 +59,7 @@ class TitleWidget(QWidget):
         title_layout.addWidget(self.lab_logo, 0, Qt.AlignTop)
         title_layout.addWidget(self.lab_title, 0, Qt.AlignCenter)
         title_layout.setSpacing(0)
+        title_layout.addWidget(self.lab_movie_name, 0, Qt.AlignCenter)
         title_layout.addStretch()
         title_layout.addWidget(self.btn_mainmenu, 0, Qt.AlignTop)
         title_layout.addWidget(self.btn_min, 0, Qt.AlignTop)
@@ -65,7 +74,7 @@ class TitleWidget(QWidget):
         self.setFixedHeight(23)
         self.is_move = False
 
-        self.skin_name = QtCore.QString("skin/starsky.png")
+        self.skin_name = QtCore.QString("skin/3-blue-title.png")
         self.pixmap = QtGui.QPixmap()
         self.pixmap.load(self.skin_name)
 

@@ -13,24 +13,90 @@ from PyQt4.phonon import Phonon
 from push_button import PushButton
 
 class ControlBar(QtGui.QDockWidget):
-    def __init__(self, title='', parent=None):
-        super(ControlBar, self).__init__(title, parent)
+#class ControlBar(QtGui.QWidget):
+    def __init__(self, parent=None):
+        super(ControlBar, self).__init__(parent)
 
         #self.combo_open = QtGui.QComboBox()
         #self.combo_open.addItem("Open File")
         #self.combo_open.addItem("Open Directory")
+    
+        self.btn_open  = QtGui.QPushButton()
+        self.btn_open.setStyleSheet("""
+                                    QPushButton{
+                                        background-image:url(icons/open_file_normal.svg);
+                                        width:16px; 
+                                        height:16px; 
+                                        padding-top:0px; 
+                                        border:0px;}
+                                       
+                                    QPushButton:hover{
+                                        background-image:url(icons/open_file_hover_press.svg);}
+                                    """)
 
-        #self.btn_open= PushButton(self)
-        #self.btn_open.loadPixmap('icons/add1.png')
-        self.btn_open  = QtGui.QPushButton(QtGui.QIcon('icons/add.png'), '')
-        self.btn_play  = QtGui.QPushButton(QtGui.QIcon('icons/play.png'), '')
-        self.btn_pause = QtGui.QPushButton(QtGui.QIcon('icons/pause.png'), '')
-        self.btn_stop  = QtGui.QPushButton(QtGui.QIcon('icons/stop.png'), '')
-        self.btn_fullscreen  = QtGui.QPushButton(QtGui.QIcon('icons/fullscreen.png'), '')
+        #self.btn_open  = QtGui.QPushButton(QtGui.QIcon('icons/add.png'), '')
+        #self.btn_play  = QtGui.QPushButton(QtGui.QIcon('icons/play.png'), '')
+        #self.btn_pause = QtGui.QPushButton(QtGui.QIcon('icons/pause.png'), '')
+        #self.btn_stop  = QtGui.QPushButton(QtGui.QIcon('icons/stop.png'), '')
+        #self.btn_fullscreen  = QtGui.QPushButton(QtGui.QIcon('icons/fullscreen.png'), '')
+
+        self.btn_play  = QtGui.QPushButton()
+        self.btn_play.setStyleSheet("""
+                                    QPushButton{
+                                        background-image:url(icons/play_normal_24px.png);
+                                        width:24px; 
+                                        height:24px; 
+                                        padding-top:0px; 
+                                        border:0px;}
+                                       
+                                    QPushButton:hover{
+                                        background-image:url(icons/play_hover_press_24px.png);}
+                                    """)
+
+        self.btn_pause  = QtGui.QPushButton()
+        self.btn_pause.setStyleSheet("""
+                                    QPushButton{
+                                        background-image:url(icons/pause_normal_24px.png);
+                                        width:24px; 
+                                        height:24px; 
+                                        padding-top:0px; 
+                                        border:0px;}
+                                       
+                                    QPushButton:hover{
+                                        background-image:url(icons/pause_hover_press_24px.png);}
+                                    """)
+
+        self.btn_stop  = QtGui.QPushButton()
+        self.btn_stop.setStyleSheet("""
+                                    QPushButton{
+                                        background-image:url(icons/stop_normal_20px.png);
+                                        width:20px; 
+                                        height:20px; 
+                                        padding-top:0px; 
+                                        border:0px;}
+                                       
+                                    QPushButton:hover{
+                                        background-image:url(icons/stop_hover_press_20px.png);}
+                                    """)
+
+        self.btn_fullscreen  = QtGui.QPushButton()
+        self.btn_fullscreen.setStyleSheet("""
+                                    QPushButton{
+                                        background-image:url(icons/fullscreen_normal.svg);
+                                        width:16px; 
+                                        height:16px; 
+                                        padding-top:0px; 
+                                        border:0px;}
+                                       
+                                    QPushButton:hover{
+                                        background-image:url(icons/cancel_fullscreen_normal.svg);}
+                                    """)
+
+
         self.seekslider = Phonon.SeekSlider()
         self.volumeslider = Phonon.VolumeSlider()
 
-        self.setWindowOpacity(0.8)  # Set Controlbar transparent 
+        self.setWindowOpacity(0.5)  # Set Controlbar transparent 
         self.setTitleBarWidget(QtGui.QWidget(self))     # Hide title bar
         self.setFeatures(QtGui.QDockWidget.NoDockWidgetFeatures)
         self.setWindowFlags(QtCore.Qt.Window | 
@@ -63,10 +129,11 @@ class ControlBar(QtGui.QDockWidget):
         hbox.addWidget(self.seekslider, 1)
         hbox.addWidget(self.volumeslider)
         self.setWidget(w_controlbar)
-        #self.setFixedHeight(60)
+        self.setFixedHeight(50)
 
         self.translateLanguage()
-        self.skin_name = QtCore.QString("skin/starsky.png")
+        self.skin_name = QtCore.QString("skin/3-Blue-controlbar.png")
+        #self.skin_name = QtCore.QString("skin/black.png")
         self.pixmap = QtGui.QPixmap()
         self.pixmap.load(self.skin_name)
 
@@ -87,5 +154,12 @@ class ControlBar(QtGui.QDockWidget):
         painter = QtGui.QPainter(self)
         painter.drawPixmap(self.rect(), self.pixmap)
         painter.end()
+
+if __name__ == '__main__':
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    controlbar = ControlBar()
+    controlbar.show()
+    app.exec_()
 
 

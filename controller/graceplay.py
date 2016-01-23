@@ -131,6 +131,7 @@ class GracePlayController:
             file_name = files[0]
             self.model.append(file_name)
             self.playlist.listview.setCurrentIndex(self.model.index(0))
+            self.view.title_widget.lab_movie_name.setText(file_name)
             #self.media.setCurrentSource(Phonon.MediaSource(file_path))
             self.media.setCurrentSource(Phonon.MediaSource(file_name))
             self.media.play()
