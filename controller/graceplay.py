@@ -80,14 +80,15 @@ class GracePlayController:
                 self.controlbar.hide()
 
     def key_handler(self, e):
+        i = 0.75 
         if e.key() == QtCore.Qt.Key_Left:
             self.media.seek(self.media.currentTime() - 10000)
         elif e.key() == QtCore.Qt.Key_Right:
             self.media.seek(self.media.currentTime() + 10000)
-        elif e.key() == QtCore.Qt.Key_Down:
-            self.media.seek(self.media.currentTime() - 60000)
+        elif e.key() == QtCore.Qt.Key_Down: 
+            self.audio.setVolume(i - 0.25)
         elif e.key() == QtCore.Qt.Key_Up:
-            self.media.seek(self.media.currentTime() + 60000)
+            self.audio.setVolume(i + 0.25)
         elif e.key() == QtCore.Qt.Key_F:
             self.toggle_fullscreen()
         elif e.key() == QtCore.Qt.Key_Space:
@@ -153,16 +154,16 @@ class GracePlayController:
         self.view.btn_play.setEnabled(True)
         self.media.stop()
 
-    def handleStateChanged(self, newstate, oldstate):
-        if newstate == Phonon.PlayingState:
-            self.btn_open.setText('Stop')
-        elif (newstate != Phonon.LoadingState and
-              newstate != Phonon.BufferingState):
-            self.btn_open.setText('Choose File')
-            if newstate == Phonon.ErrorState:
-                source = self.media.currentSource().fileName()
-                print ('ERROR: could not play:', source.toLocal8Bit().data())
-                print ('  %s' % self.media.errorString().toLocal8Bit().data())
+    #def handleStateChanged(self, newstate, oldstate):
+    #    if newstate == Phonon.PlayingState:
+    #        self.btn_open.setText('Stop')
+    #    elif (newstate != Phonon.LoadingState and
+    #          newstate != Phonon.BufferingState):
+    #        self.btn_open.setText('Choose File')
+    #        if newstate == Phonon.ErrorState:
+    #            source = self.media.currentSource().fileName()
+    #            print ('ERROR: could not play:', source.toLocal8Bit().data())
+    #            print ('  %s' % self.media.errorString().toLocal8Bit().data())
 
 
     def handle_btn_fullscreen(self):
@@ -191,8 +192,8 @@ class GracePlayController:
 
     def toggle_play(self):
         if self.media.state() == Phonon.PlayingState:
-            self.pause()
+            self.media.pause()
         else:
-            self.play()
+            self.media.play()
 
 
