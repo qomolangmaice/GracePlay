@@ -23,6 +23,7 @@ class GracePlayController:
         self.view = view
         self.audio = self.view.audio
         self.media = self.view.media
+        self.main_menu = self.view.main_menu
         self.title_widget = self.view.title_widget
         self.video = self.view.video
         self.controlbar = self.view.controlbar
@@ -57,7 +58,10 @@ class GracePlayController:
         self.view.close()
 
     def handle_mainmenu(self):
-        pass
+        p = self.view.rect().topRight()
+        p.setX(p.x() - 150)
+        p.setY(p.y() + 22)
+        self.view.main_menu.exec_(self.view.mapToGlobal(p))
 
     def handle_min(self):
         self.view.showMinimized()

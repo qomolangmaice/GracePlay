@@ -10,6 +10,7 @@
 from PyQt4 import QtCore, QtGui
 from PyQt4.phonon import Phonon
 
+from main_menu import MainMenu
 from title_widget import TitleWidget 
 from playlist import PlayList
 from controlbar import ControlBar
@@ -55,6 +56,8 @@ class GracePlay(QtGui.QWidget):
         self.audio = Phonon.AudioOutput(self)
 
     def init_ui(self):
+        self.main_menu = MainMenu(self)
+
         self.title_widget = TitleWidget(self)
         self.btn_mainmenu = self.title_widget.btn_mainmenu
         self.btn_min = self.title_widget.btn_min
