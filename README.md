@@ -10,3 +10,11 @@ Dependencies(Debian):
 Run: 
 -------------------
 	python main.py 
+
+Screenshots:
+------------
+![image](https://github.com/qomolangmaice/GracePlay/tree/master/screenshots/starwars-Three.1.png)
+![image](https://github.com/qomolangmaice/GracePlay/tree/master/screenshots/starwars-Three.2.png)
+![image](https://github.com/qomolangmaice/GracePlay/tree/master/screenshots/starwars-Three.3.png)
+![image](https://github.com/qomolangmaice/GracePlay/tree/master/screenshots/starwars-Two.1.png)
+![image](https://github.com/qomolangmaice/GracePlay/tree/master/screenshots/starwars-Two.2.png)
