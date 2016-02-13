@@ -24,6 +24,7 @@ class GracePlayController:
         self.audio = self.view.audio
         self.media = self.view.media
         self.main_menu = self.view.main_menu
+        self.setting_dialog = self.view.setting_dialog
         self.title_widget = self.view.title_widget
         self.video = self.view.video
         self.controlbar = self.view.controlbar
@@ -31,10 +32,6 @@ class GracePlayController:
         self.playlist.listview.setModel(self.model) 
 
         self.init_media()
-
-        # Handle button clicked signals
-        #self.controlbar.combo_open.currentIndexChanged.connect(self.handle_combo_open)
-        #self.connect(self.title_widget, SINGAL("show_close()"), self, SLOT("show_close()"))
 
         self.view.btn_mainmenu.clicked.connect(self.handle_mainmenu)
         self.view.btn_min.clicked.connect(self.handle_min)
@@ -50,7 +47,6 @@ class GracePlayController:
         self.view.btn_pause.clicked.connect(self.handle_btn_pause)
         self.view.btn_stop.clicked.connect(self.handle_btn_stop)
         self.view.btn_fullscreen.clicked.connect(self.handle_btn_fullscreen)
-
        
         #self.playlist.listview.doubleClicked.connect(self.play_file)
 
@@ -80,15 +76,15 @@ class GracePlayController:
                 self.controlbar.hide()
 
     def key_handler(self, e):
-        i = 0.75 
+        i = 0.8 
         if e.key() == QtCore.Qt.Key_Left:
             self.media.seek(self.media.currentTime() - 10000)
         elif e.key() == QtCore.Qt.Key_Right:
             self.media.seek(self.media.currentTime() + 10000)
         elif e.key() == QtCore.Qt.Key_Down: 
-            self.audio.setVolume(i - 0.25)
+            self.audio.setVolume(i - 0.2)
         elif e.key() == QtCore.Qt.Key_Up:
-            self.audio.setVolume(i + 0.25)
+            self.audio.setVolume(i + 0.2)
         elif e.key() == QtCore.Qt.Key_F:
             self.toggle_fullscreen()
         elif e.key() == QtCore.Qt.Key_Space:
@@ -104,32 +100,10 @@ class GracePlayController:
     def clear_files(self):
         self.model.clear()
 
-    #def handle_combo_open(self):
-    #    if self.controlbar.combo_open.currentText() == "Open File":
-    #         #file_path = QtGui.QFileDialog.getOpenFileName(self.view, self.view.btn_open.text())
-    #        file_dialog = QtGui.QFileDialog(self.view, _('Choose a File'), 
-    #                                      os.path.expanduser('~'),
-    #                                      #_('Multimedia File (*.avi *.wmv *.mkv *.rmvb *.mp3 *.mp4)'))
-    #                                      _('Multimedia File (*.*)'))
-    #        #if file_path:
-    #        if file_dialog.exec_():
-    #            self.clear_files()
-    #            files = file_dialog.selectedFiles()
-    #            file_name = files[0]
-    #            self.model.append(file_name)
-    #            self.playlist.listview.setCurrentIndex(self.model.index(0))
-    #            #self.media.setCurrentSource(Phonon.MediaSource(file_path))
-    #            self.media.setCurrentSource(Phonon.MediaSource(file_name))
-    #            self.media.play()
-
-                   
-
     def handle_btn_open(self):
-        #file_path = QtGui.QFileDialog.getOpenFileName(self.view, self.view.btn_open.text())
         file_dialog = QtGui.QFileDialog(self.view, _('Choose a File'), 
                                       os.path.expanduser('~'),
                                       _('Multimedia File (*.*)'))
-        #if file_path:
         if file_dialog.exec_():
             self.clear_files()
             files = file_dialog.selectedFiles()
@@ -137,9 +111,15 @@ class GracePlayController:
             self.model.append(file_name)
             self.playlist.listview.setCurrentIndex(self.model.index(0))
             self.view.title_widget.lab_movie_name.setText(file_name)
-            #self.media.setCurrentSource(Phonon.MediaSource(file_path))
             self.media.setCurrentSource(Phonon.MediaSource(file_name))
             self.media.play()
+
+        ''' Another version - open file ''' 
+        #file_path = QtGui.QFileDialog.getOpenFileName(self.view, self.view.btn_open.text())
+        #if file_path:
+        #    self.view.title_widget.lab_movie_name.setText(file_path)
+        #    self.media.setCurrentSource(Phonon.MediaSource(file_path))
+        #    self.media.play()
 
     def handle_btn_pause(self):
         self.view.btn_play.setEnabled(True)
@@ -153,18 +133,6 @@ class GracePlayController:
     def handle_btn_stop(self):
         self.view.btn_play.setEnabled(True)
         self.media.stop()
-
-    #def handleStateChanged(self, newstate, oldstate):
-    #    if newstate == Phonon.PlayingState:
-    #        self.btn_open.setText('Stop')
-    #    elif (newstate != Phonon.LoadingState and
-    #          newstate != Phonon.BufferingState):
-    #        self.btn_open.setText('Choose File')
-    #        if newstate == Phonon.ErrorState:
-    #            source = self.media.currentSource().fileName()
-    #            print ('ERROR: could not play:', source.toLocal8Bit().data())
-    #            print ('  %s' % self.media.errorString().toLocal8Bit().data())
-
 
     def handle_btn_fullscreen(self):
         if self.video.isFullScreen():
@@ -195,5 +163,4 @@ class GracePlayController:
             self.media.pause()
         else:
             self.media.play()
-
 

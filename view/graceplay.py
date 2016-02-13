@@ -15,12 +15,11 @@ from title_widget import TitleWidget
 from playlist import PlayList
 from controlbar import ControlBar
 from video import Video
+from setting_dialog import SettingDialog
 
-#class GracePlay(QtGui.QMainWindow):
 class GracePlay(QtGui.QWidget):
     ''' The main window of the GracePlay.'''
     def __init__(self, parent=None):
-        #QtGui.QMainWindow.__init__(self, parent)
         QtGui.QWidget.__init__(self, parent)
 
         self.init_media()
@@ -29,25 +28,14 @@ class GracePlay(QtGui.QWidget):
         self.setWindowIcon(QtGui.QIcon("icons/72px-video.png"))
 
         # Set transparent window
-        #self.setWindowOpacity(0.95)
         self.setWindowOpacity(1)
+
         self.setMinimumSize(700, 450)
 
         # set Frameless window
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint) 
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
-        # Set background color
-        #widget_style = ''' 
-        #    QWidget{
-        #        border-radius: 4px;
-        #        background-image: url('skin/17_big.png');
-        #    }
-        #    VideoWidget{
-        #        background-color: #000000;
-        #    } 
-        #'''
-        #self.setStyleSheet(widget_style)
         self.show()
 
     def init_media(self):
@@ -57,6 +45,7 @@ class GracePlay(QtGui.QWidget):
 
     def init_ui(self):
         self.main_menu = MainMenu(self)
+        self.setting_dialog = SettingDialog(self)
 
         self.title_widget = TitleWidget(self)
         self.btn_mainmenu = self.title_widget.btn_mainmenu
@@ -64,7 +53,6 @@ class GracePlay(QtGui.QWidget):
         self.btn_max = self.title_widget.btn_max
         self.btn_close = self.title_widget.btn_close
 
-        #self.controlbar = ControlBar(_('ControlBar'))
         self.controlbar = ControlBar()
         self.controlbar.setFixedHeight(48)
         self.btn_open  = self.controlbar.btn_open
@@ -81,6 +69,7 @@ class GracePlay(QtGui.QWidget):
         main_layout.addWidget(self.title_widget)
         main_layout.setSpacing(0)
         main_layout.addWidget(self.video)
+
         #self.setCentralWidget(self.video)
         #self.video.setMinimumSize(700, 350)
 
@@ -91,6 +80,10 @@ class GracePlay(QtGui.QWidget):
         main_layout.setContentsMargins(0, 0, 0, 0)
 
         self.setLayout(main_layout)
+
+        ''' 
+        Dock Mode, Unfinish yet...
+        '''
         #self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, self.controlbar)
 
         #self.playlist = PlayList(_('PlayList'))

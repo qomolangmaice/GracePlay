@@ -29,8 +29,6 @@ class TitleWidget(QWidget):
         pixmap = QPixmap("icons/24px-video.png")
         self.lab_logo.setPixmap(pixmap)
         self.lab_logo.setFixedSize(pixmap.size())
-        #self.lab_logo.setFixedSize(25, 25)
-        #self.lab_logo.setIconSize(QSize(25, 25))
         self.lab_logo.setStyleSheet("background:transparent")   # set logo transparent
         self.lab_logo.setCursor(Qt.PointingHandCursor)
 

@@ -12,4 +12,4 @@ from push_button import PushButton
 from main_menu import MainMenu
 from title_widget import TitleWidget
 from controlbar import ControlBar 
-
+from setting_dialog import SettingDialog 

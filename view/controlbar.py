@@ -13,14 +13,13 @@ from PyQt4.phonon import Phonon
 from push_button import PushButton
 
 class ControlBar(QtGui.QDockWidget):
-#class ControlBar(QtGui.QWidget):
     def __init__(self, parent=None):
         super(ControlBar, self).__init__(parent)
 
         #self.combo_open = QtGui.QComboBox()
         #self.combo_open.addItem("Open File")
         #self.combo_open.addItem("Open Directory")
-    
+
         self.btn_open  = QtGui.QPushButton()
         self.btn_open.setStyleSheet("""
                                     QPushButton{
@@ -33,12 +32,6 @@ class ControlBar(QtGui.QDockWidget):
                                     QPushButton:hover{
                                         background-image:url(icons/open_file_hover_press.svg);}
                                     """)
-
-        #self.btn_open  = QtGui.QPushButton(QtGui.QIcon('icons/add.png'), '')
-        #self.btn_play  = QtGui.QPushButton(QtGui.QIcon('icons/play.png'), '')
-        #self.btn_pause = QtGui.QPushButton(QtGui.QIcon('icons/pause.png'), '')
-        #self.btn_stop  = QtGui.QPushButton(QtGui.QIcon('icons/stop.png'), '')
-        #self.btn_fullscreen  = QtGui.QPushButton(QtGui.QIcon('icons/fullscreen.png'), '')
 
         self.btn_play  = QtGui.QPushButton()
         self.btn_play.setStyleSheet("""
@@ -133,7 +126,6 @@ class ControlBar(QtGui.QDockWidget):
 
         self.translateLanguage()
         self.skin_name = QtCore.QString("skin/3-Blue-controlbar.png")
-        #self.skin_name = QtCore.QString("skin/black.png")
         self.pixmap = QtGui.QPixmap()
         self.pixmap.load(self.skin_name)
 
