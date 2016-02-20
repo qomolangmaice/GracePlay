@@ -85,6 +85,18 @@ class ControlBar(QtGui.QDockWidget):
                                         background-image:url(icons/cancel_fullscreen_normal.svg);}
                                     """)
 
+        self.btn_playlist = QtGui.QPushButton()
+        self.btn_playlist.setStyleSheet("""
+                                    QPushButton{
+                                        background-image:url(icons/playlist_open_normal.svg);
+                                        width:16px; 
+                                        height:16px; 
+                                        padding-top:0px; 
+                                        border:0px;}
+                                       
+                                    QPushButton:hover{
+                                        background-image:url(icons/playlist_open_hover_press.svg);}
+                                    """)
 
         self.seekslider = Phonon.SeekSlider()
         self.volumeslider = Phonon.VolumeSlider()
@@ -106,6 +118,7 @@ class ControlBar(QtGui.QDockWidget):
         self.btn_pause.setFocusPolicy(QtCore.Qt.NoFocus)
         self.btn_stop.setFocusPolicy(QtCore.Qt.NoFocus)
         self.btn_fullscreen.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.btn_playlist.setFocusPolicy(QtCore.Qt.NoFocus)
         self.seekslider.setFocusPolicy(QtCore.Qt.NoFocus)
         self.volumeslider.setFocusPolicy(QtCore.Qt.NoFocus)
 
@@ -121,6 +134,7 @@ class ControlBar(QtGui.QDockWidget):
         hbox.addWidget(self.btn_fullscreen)
         hbox.addWidget(self.seekslider, 1)
         hbox.addWidget(self.volumeslider)
+        hbox.addWidget(self.btn_playlist)
         self.setWidget(w_controlbar)
         self.setFixedHeight(50)
 

@@ -47,6 +47,7 @@ class GracePlayController:
         self.view.btn_pause.clicked.connect(self.handle_btn_pause)
         self.view.btn_stop.clicked.connect(self.handle_btn_stop)
         self.view.btn_fullscreen.clicked.connect(self.handle_btn_fullscreen)
+        self.view.btn_playlist.clicked.connect(self.handle_btn_playlist)
        
         #self.playlist.listview.doubleClicked.connect(self.play_file)
 
@@ -146,6 +147,12 @@ class GracePlayController:
             self.controlbar.setFloating(True)
             self.controlbar.move_to_bottom()
 
+    def handle_btn_playlist(self):
+        if self.view.playlist.isVisible():
+            self.view.playlist.hide()
+        else:
+            self.view.playlist.show()
+
     def toggle_fullscreen(self):
         if self.video.isFullScreen():
             self.video.setFullScreen(False)
@@ -161,6 +168,7 @@ class GracePlayController:
     def toggle_play(self):
         if self.media.state() == Phonon.PlayingState:
             self.media.pause()
+            #self.view.btn_play.setIcon(QtGui.QIcon('icons/stop_normal_24px.png'))
         else:
             self.media.play()
 

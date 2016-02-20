@@ -28,9 +28,9 @@ class GracePlay(QtGui.QWidget):
         self.setWindowIcon(QtGui.QIcon("icons/72px-video.png"))
 
         # Set transparent window
-        self.setWindowOpacity(1)
+        #self.setWindowOpacity(1)
 
-        self.setMinimumSize(700, 450)
+        self.setMinimumSize(800, 450)
 
         # set Frameless window
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint) 
@@ -60,34 +60,37 @@ class GracePlay(QtGui.QWidget):
         self.btn_pause = self.controlbar.btn_pause
         self.btn_stop = self.controlbar.btn_stop
         self.btn_fullscreen = self.controlbar.btn_fullscreen
+        self.btn_playlist = self.controlbar.btn_playlist
         self.seekslider = self.controlbar.seekslider
         self.volumeslider = self.controlbar.volumeslider
 
-        self.playlist = PlayList(_('PlayList'))
+        self.video.setMinimumSize(700, 350)
 
-        main_layout = QtGui.QVBoxLayout()
-        main_layout.addWidget(self.title_widget)
+        self.playlist = PlayList(_('PlayList')) 
+        self.playlist.setFixedSize(180, 700)
+        # playlist is hidden by default
+        self.playlist.hide()
+
+        title_layout = QtGui.QHBoxLayout()
+        title_layout.addWidget(self.title_widget)
+
+        center_layout = QtGui.QHBoxLayout()
+        center_layout.addWidget(self.video)
+        center_layout.setSpacing(0)
+        center_layout.addWidget(self.playlist)
+
+        bottom_layout = QtGui.QHBoxLayout()
+        bottom_layout.addWidget(self.controlbar)
+
+        main_layout = QtGui.QGridLayout(self)
+        main_layout.addLayout(title_layout, 0, 0)
+        main_layout.addLayout(center_layout, 1, 0)
         main_layout.setSpacing(0)
-        main_layout.addWidget(self.video)
-
-        #self.setCentralWidget(self.video)
-        #self.video.setMinimumSize(700, 350)
-
-        main_layout.setSpacing(0)
-        main_layout.addWidget(self.controlbar)
-
-        #main_layout.addWidget(self.playlist)
+        main_layout.addLayout(bottom_layout, 2, 0, 1, 2)
+        # Fill the window with all contents, no gap in border.
         main_layout.setContentsMargins(0, 0, 0, 0)
 
         self.setLayout(main_layout)
-
-        ''' 
-        Dock Mode, Unfinish yet...
-        '''
-        #self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, self.controlbar)
-
-        #self.playlist = PlayList(_('PlayList'))
-        #self.addDockWidget(QtCore.Qt.RightDockWidgetArea, self.playlist)
     
     # Set the drag property of the window -- For press event 
     def mousePressEvent(self, event):

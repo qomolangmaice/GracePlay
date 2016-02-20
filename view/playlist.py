@@ -20,7 +20,10 @@ class PlayList(QtGui.QDockWidget):
     def init_ui(self):
         self.listview = QtGui.QListView()
         self.setWidget(self.listview)
-        #self.setFeatures(QtGui.QDockWidget.NoDockWidgetFeatures)
+
+        # Hide title bar
+        self.setTitleBarWidget(QtGui.QWidget(self))
+        self.setFeatures(QtGui.QDockWidget.NoDockWidgetFeatures)
         self.listview.setFocusPolicy(QtCore.Qt.NoFocus)
 
 
