@@ -34,7 +34,7 @@ class TitleWidget(QWidget):
 
         # Set Title 
         self.lab_title = QLabel()
-        self.lab_title.setText(u' GracePlay')
+        self.lab_title.setText(u' GracePlay ')
         self.lab_title.setStyleSheet("color:white")   # set logo transparent
         self.lab_title.setFont(QFont("Roman times", 12, QFont.Normal))
         self.lab_title.setAlignment(Qt.AlignRight | Qt.AlignBottom)

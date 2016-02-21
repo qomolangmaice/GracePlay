@@ -61,13 +61,15 @@ class GracePlay(QtGui.QWidget):
         self.btn_stop = self.controlbar.btn_stop
         self.btn_fullscreen = self.controlbar.btn_fullscreen
         self.btn_playlist = self.controlbar.btn_playlist
+        self.lab_cur_time = self.controlbar.lab_cur_time
+        self.lab_total_time = self.controlbar.lab_total_time
         self.seekslider = self.controlbar.seekslider
         self.volumeslider = self.controlbar.volumeslider
 
         self.video.setMinimumSize(700, 350)
 
         self.playlist = PlayList(_('PlayList')) 
-        self.playlist.setFixedSize(180, 700)
+        self.playlist.setFixedSize(180, 1000)
         # playlist is hidden by default
         self.playlist.hide()
 

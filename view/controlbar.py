@@ -98,6 +98,16 @@ class ControlBar(QtGui.QDockWidget):
                                         background-image:url(icons/playlist_open_hover_press.svg);}
                                     """)
 
+        self.lab_cur_time = QtGui.QLabel()   
+        self.lab_cur_time.setText(u'00:00:00')
+        self.lab_cur_time.setStyleSheet("color:white")   # set logo transparent
+        self.lab_cur_time.setFont(QtGui.QFont("Roman times", 11, QtGui.QFont.Normal))
+
+        self.lab_total_time = QtGui.QLabel()   
+        self.lab_total_time.setText(u'00:00:00')
+        self.lab_total_time.setStyleSheet("color:white")   # set logo transparent
+        self.lab_total_time.setFont(QtGui.QFont("Roman times", 11, QtGui.QFont.Normal))
+
         self.seekslider = Phonon.SeekSlider()
         self.volumeslider = Phonon.VolumeSlider()
 
@@ -132,7 +142,9 @@ class ControlBar(QtGui.QDockWidget):
         hbox.addWidget(self.btn_pause)
         hbox.addWidget(self.btn_stop)
         hbox.addWidget(self.btn_fullscreen)
+        hbox.addWidget(self.lab_cur_time)
         hbox.addWidget(self.seekslider, 1)
+        hbox.addWidget(self.lab_total_time)
         hbox.addWidget(self.volumeslider)
         hbox.addWidget(self.btn_playlist)
         self.setWidget(w_controlbar)

@@ -41,6 +41,11 @@ class GracePlayController:
         self.video.doubleClicked.connect(self.toggle_fullscreen)
         self.video.mouseTrack.connect(self.animate_controlbar)
         self.video.keyPressed.connect(self.key_handler)
+
+        self.media.tick.connect(self.show_status_info)
+        self.media.aboutToFinish.connect(self.prepare_next)
+        self.media.currentSourceChanged.connect(self.new_file)
+        self.media.finished.connect(self.finish)
  
         self.view.btn_open.clicked.connect(self.handle_btn_open)
         self.view.btn_play.clicked.connect(self.handle_btn_play)
@@ -49,10 +54,64 @@ class GracePlayController:
         self.view.btn_fullscreen.clicked.connect(self.handle_btn_fullscreen)
         self.view.btn_playlist.clicked.connect(self.handle_btn_playlist)
        
-        #self.playlist.listview.doubleClicked.connect(self.play_file)
+        self.playlist.listview.doubleClicked.connect(self.handle_play_file)
 
-    def handle_close(self):
-        self.view.close()
+        self.playlist.action_add_files.triggered.connect(self.handle_add_files)
+        self.playlist.action_add_directory.triggered.connect(self.handle_add_directory)
+        self.playlist.action_add_url.triggered.connect(self.handle_add_url)
+        self.playlist.action_delete_file.triggered.connect(self.handle_delete_file)
+        self.playlist.action_clear_files.triggered.connect(self.handle_clear_files)
+
+    def show_status_info(self):
+        state = [_('Loading'),
+                 _('Stopped'),
+                 _('Playing'),
+                 _('Buffering'),
+                 _('Paused'),
+                 _('Error')][self.media.state()]
+        cur_time   = str(timedelta(seconds = self.media.currentTime() / 1000))
+        total_time = str(timedelta(seconds = self.media.totalTime() / 1000))
+        #self.view.statusBar().showMessage('%s: %s/%s' % (state, cur_time, total_time))
+        self.view.lab_cur_time.setText(cur_time)
+        self.view.lab_total_time.setText(total_time)
+
+    def prepare_next(self):
+        pass
+
+    def new_file(self):
+        pass
+
+    def finish(self):
+        pass
+                
+    def handle_add_files(self):
+        file_dialog = QtGui.QFileDialog(self.view, _('Choose File(s)'),
+                                        os.path.expanduser('~'),
+                                        ('Multimedia File (*.avi *.wmv *.mp4 *.rmvb *.mkv *mp3)'))
+        if file_dialog.exec_():
+            files = file_dialog.selectedFiles()
+            self.model.extend(files)
+
+    def handle_add_directory(self):
+        file_dialog = QtGui.QFileDialog(self.view, _('Choose a directory'))
+        file_dialog.setFileMode(QtGui.QFileDialog.Directory)
+        if file_dialog.exec_():
+            directory = file_dialog.selectedFiles()[0]
+            qdir = QtCore.QDir(directory)
+            for f in qdir.entryInfoList(['*.avi','*.wmv', '*.mp4', '*.rmvb','*.mkv', '*.mp3'], QtCore.QDir.Files):
+                self.model.append(f.absoluteFilePath())
+
+    def handle_add_url(self):
+        pass
+
+    def handle_delete_file(self):
+       index = self.playlist.listview.currentIndex() 
+       self.model.pop(index.row())
+       #self.media.stop()
+
+    def handle_clear_files(self):
+       self.model.clear() 
+       self.media.stop()
 
     def handle_mainmenu(self):
         p = self.view.rect().topRight()
@@ -68,6 +127,9 @@ class GracePlayController:
             self.view.showMaximized()
         else:
             self.view.showNormal()
+
+    def handle_close(self):
+        self.view.close()
 
     def animate_controlbar(self, e):
         if self.video.isFullScreen():
@@ -100,6 +162,7 @@ class GracePlayController:
 
     def clear_files(self):
         self.model.clear()
+        self.view.title_widget.lab_movie_name.setText('')
 
     def handle_btn_open(self):
         file_dialog = QtGui.QFileDialog(self.view, _('Choose a File'), 
@@ -129,6 +192,12 @@ class GracePlayController:
     def handle_btn_play(self):
         self.view.btn_play.setEnabled(False)
         self.media.setTickInterval(400)
+        self.media.play()
+
+    def handle_play_file(self, index):
+        f = self.model[index.row()]
+        self.media.setCurrentSource(Phonon.MediaSource(f))
+        self.view.title_widget.lab_movie_name.setText(f)
         self.media.play()
 
     def handle_btn_stop(self):
