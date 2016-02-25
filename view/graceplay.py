@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-#-*- coding: UTF-8 -*-
-
+# -*- coding=utf-8 -*-
 # File Name: graceplay.py
 # Description: 
 # Author: iczelion
@@ -69,11 +68,7 @@ class GracePlay(QtGui.QWidget):
 
         #self.playlist = PlayList(_('PlayList')) 
         self.playlist = PlayList() 
-        #self.btn_play_mode = self.playlist.btn_play_mode
-        #self.btn_add_files = self.playlist.btn_add_files
-        #self.btn_add_directory = self.playlist.btn_add_directory
-        #self.btn_delete_file = self.playlist.btn_delete_file
-        #self.btn_clear_files = self.playlist.btn_clear_files
+
         self.playlist.setFixedSize(150, 850)
         # playlist is hidden by default
         #self.playlist.hide()

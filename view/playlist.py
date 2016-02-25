@@ -1,67 +1,22 @@
-# -*- coding: utf-8 -*-
-# Author: tiensbakung
-# Date: 2013-03-29
-'''The playlist GUI.
-'''
+#!/usr/bin/env python
+#-*- coding=utf-8 -*-
+# File Name: graceplay.py
+# Description: Play list GUI 
+# Author: iczelion
+# Email: qomolangmaice@163.com 
+# Created: 2016.01.05 20:58:09
 
 from PyQt4 import QtGui, QtCore
 
-
 class PlayList(QtGui.QDockWidget):
-    '''The GUI part of the playlist.
-    '''
-#    def __init__(self, title='', parent=None):
-#        super(PlayList, self).__init__(title, parent)
- 
     def __init__(self, parent=None):
         super(PlayList, self).__init__()
         self.init_ui()
         self.init_contextmenu()
-        #self.setWindowOpacity(1)
 
     def init_ui(self):
         self.listview = QtGui.QListView()
         self.setWidget(self.listview)
-
-        #self.btn_play_mode = QtGui.QPushButton()
-        #self.btn_add_files = QtGui.QPushButton()
-        #self.btn_add_directory = QtGui.QPushButton()
-        #self.btn_delete_file = QtGui.QPushButton()
-        #self.btn_clear_files = QtGui.QPushButton()
-
-        #self.setFeatures(QtGui.QDockWidget.NoDockWidgetFeatures)
-        #self.setWindowFlags(QtCore.Qt.Window | 
-        #                    QtCore.Qt.X11BypassWindowManagerHint | 
-        #                    QtCore.Qt.FramelessWindowHint |
-        #                    QtCore.Qt.CustomizeWindowHint | 
-        #                    QtCore.Qt.WindowStaysOnTopHint)
-        #self.setAllowedAreas(QtCore.Qt.TopDockWidgetArea | QtCore.Qt.BottomDockWidgetArea)
-        #self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
-        #self.setFocusPolicy(QtCore.Qt.NoFocus)
-
-
-        #h_list = QtGui.QVBoxLayout()
-        #h_list.addWidget(self.listview)
-
-        #v_list = QtGui.QHBoxLayout()
-        #v_list.addWidget(self.btn_play_mode)
-        #v_list.addWidget(self.btn_add_files)
-        #v_list.addWidget(self.btn_add_directory)
-        #v_list.addWidget(self.btn_delete_file)
-        #v_list.addWidget(self.btn_clear_files)
-
-        #w_playlist = QtGui.QWidget()
-        #playlist = QtGui.QGridLayout()
-        #w_playlist.setLayout(playlist) 
-
-        #playlist.addLayout(h_list, 0, 0)
-        #playlist.setSpacing(0)
-        #playlist.addLayout(v_list, 1, 0)
-
-        #self.setWidget(w_playlist)
-        #self.setContentsMargins(0, 0, 0, 0)
-        #self.setWindowFlags(QtCore.Qt.FramelessWindowHint) 
-        #self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         # Hide title bar
         self.setTitleBarWidget(QtGui.QWidget(self))

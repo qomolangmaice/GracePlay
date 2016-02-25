@@ -1,13 +1,10 @@
 #!/usr/bin/env python
-#-*- coding: UTF-8 -*-
-
+#-*- coding=utf-8 -*-
 # File Name: playlist.py
 # Description: 
 # Author: iczelion
 # Email: qomolangmaice@163.com 
 # Created: 2016.01.13 18:40:09
-
-
 
 import os
 

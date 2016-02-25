@@ -13,3 +13,4 @@ from main_menu import MainMenu
 from title_widget import TitleWidget
 from controlbar import ControlBar 
 from setting_dialog import SettingDialog 
+from playmode_dialog import PlayModeDialog

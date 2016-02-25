@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-#-*- coding: UTF-8 -*-
-
+#-*- coding=utf-8 -*-
 # File Name: push_button.py
 # Description: Set style and special effects of the buttons 
 # Author: iczelion

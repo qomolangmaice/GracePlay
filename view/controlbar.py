@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-#-*- coding: UTF-8 -*-
-
+# -*- coding=utf-8 -*-
 # File Name: controlbar.py
 # Description: 
 # Author: iczelion
@@ -15,10 +14,6 @@ from push_button import PushButton
 class ControlBar(QtGui.QDockWidget):
     def __init__(self, parent=None):
         super(ControlBar, self).__init__(parent)
-
-        #self.combo_open = QtGui.QComboBox()
-        #self.combo_open.addItem("Open File")
-        #self.combo_open.addItem("Open Directory")
 
         self.btn_open  = QtGui.QPushButton()
         self.btn_open.setStyleSheet("""
